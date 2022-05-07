@@ -10,5 +10,5 @@ yarn
 2. Run command:
 
 ```bash
-yarn mining
+yarn miner
 ```
