@@ -4,8 +4,13 @@ import randomArray from "random-array";
 import * as THREE from "three";
 import { OBJExporter } from "three/examples/jsm/exporters/OBJExporter.js";
 import axios from "axios";
+import yargs from "yargs";
+import { hideBin } from "yargs/helpers";
 
-const apiUrl = "http://localhost:9933";
+const argv = yargs(hideBin(process.argv)).argv;
+const host = argv.host || "localhost";
+const port = argv.port || "9933";
+const apiUrl = `http://${host}:${port}`;
 
 while (true) {
     const rock = create_rock();
