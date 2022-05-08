@@ -24,7 +24,7 @@ setInterval(() => {
             params: [1, obj_file],
         })
         .catch((e) => {
-            console.log("Error connecting to server:", host, port);
+            console.log(e.toString());
         })
         .then((response) => {
             if (!response) {
