@@ -8,21 +8,31 @@ import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
 const argv = yargs(hideBin(process.argv)).argv;
+const interval = argv.interval || 1000;
 const host = argv.host || "localhost";
 const port = argv.port || "9933";
 const apiUrl = `http://${host}:${port}`;
 
-while (true) {
+setInterval(() => {
     const rock = create_rock();
     const obj_file = create_obj_file(rock);
-    const response = await axios.post(apiUrl, {
-        jsonrpc: "2.0",
-        id: 1,
-        method: "push_mining_object",
-        params: [1, obj_file],
-    });
-    console.log(response.data);
-}
+    axios
+        .post(apiUrl, {
+            jsonrpc: "2.0",
+            id: 1,
+            method: "push_mining_object",
+            params: [1, obj_file],
+        })
+        .catch((e) => {
+            console.log("Error connecting to server:", host, port);
+        })
+        .then((response) => {
+            if (!response) {
+                return;
+            }
+            console.log(response.data);
+        });
+}, interval);
 
 function create_rock() {
     const rock_obj = new RockObj();
