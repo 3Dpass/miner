@@ -6,14 +6,25 @@ import { OBJExporter } from "three/examples/jsm/exporters/OBJExporter.js";
 import axios from "axios";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
+import fs from "fs";
 
 const argv = yargs(hideBin(process.argv)).argv;
 const interval = argv.interval || 1000;
 const host = argv.host || "localhost";
 const port = argv.port || "9933";
+const do_save = argv.save || false;
 const apiUrl = `http://${host}:${port}`;
 
-setInterval(() => {
+if (do_save) {
+    const filename = "rock.obj";
+    const rock = create_rock();
+    const obj_file = create_obj_file(rock);
+    save(obj_file, filename);
+} else {
+    setInterval(mining, interval);
+}
+
+function mining() {
     const rock = create_rock();
     const obj_file = create_obj_file(rock);
     axios
@@ -32,12 +43,14 @@ setInterval(() => {
             }
             console.log(response.data);
         });
-}, interval);
+}
 
 function create_rock() {
     const rock_obj = new RockObj();
     rock_obj.seed = Math.round(randomArray(0, Number.MAX_SAFE_INTEGER).oned(1)[0]);
-    rock_obj.scale = [1.0, 1.0, 1.8];
+    rock_obj.scale = [1.0, 1.0, 2.0];
+    rock_obj.meshNoiseStrength = { val: 2.0 };
+    rock_obj.varyMesh();
     return new Rock(rock_obj);
 }
 
@@ -49,4 +62,13 @@ function create_obj_file(rock) {
 
     const exporter = new OBJExporter();
     return exporter.parse(scene);
+}
+
+function save(text, filename) {
+    fs.writeFile(filename, text, function (err) {
+        if (err) {
+            return console.log(err);
+        }
+        console.log("The file was saved!");
+    });
 }

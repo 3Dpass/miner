@@ -29,7 +29,7 @@ const Rock = function (rockObj) {
 
     const rand = seedRandom(rock.seed);
 
-    const sphere = createSphere({ stacks: 30, slices: 30 });
+    const sphere = createSphere({ stacks: 50, slices: 50 });
 
     const positions = sphere.vertices;
     const indexes = sphere.cells;
@@ -86,10 +86,10 @@ const Rock = function (rockObj) {
     /**
      * Finally, we apply a Perlin noise to slightly distort the mesh and then scale the mesh.
      */
+    const perlin = new Perlin(Math.round(Number.MAX_SAFE_INTEGER * rand()));
     for (let i = 0; i < positions.length; ++i) {
         let p = positions[i];
 
-        const perlin = new Perlin();
         const noise = rock.noiseStrength * perlin.noise(rock.noiseScale * p[0], rock.noiseScale * p[1], rock.noiseScale * p[2]);
 
         positions[i][0] += noise;
