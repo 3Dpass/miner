@@ -1,5 +1,5 @@
 ## About
-Simple CPU miner app for [Proof of Scan](https://3dpass.org/proof_of_scan.html). It generates random-shaped 3D models and send them to the 
+Simple CPU miner app for [Proof of Scan](https://3dpass.org/proof_of_scan.html). It generates random-shaped 3D models and sends them to the 
 [local node](https://github.com/3Dpass/3DP) via RPC request like this: 
 
 ```{
