@@ -2,7 +2,8 @@
 Simple CPU miner app for [Proof of Scan](https://3dpass.org/proof_of_scan.html). It generates random-shaped 3D models and sends them to the 
 [local node](https://github.com/3Dpass/3DP) via [mining RPC](https://github.com/3Dpass/3DP/blob/dev_recipes/nodes/poscan-consensus/src/mining_rpc.rs) like this: 
 
-```{
+```
+{
     "jsonrpc":"2.0",
     "id":1",
     "method":"push_mining_object",
