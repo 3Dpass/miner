@@ -14,19 +14,17 @@ const host = argv.host || "localhost";
 const port = argv.port || "9933";
 const do_save = argv.save || false;
 const apiUrl = `http://${host}:${port}`;
+const filename = "rock.obj";
 
-if (do_save) {
-    const filename = "rock.obj";
+mining(do_save);
+
+function mining(do_save) {
     const rock = create_rock();
     const obj_file = create_obj_file(rock);
-    save(obj_file, filename);
-} else {
-    setInterval(mining, interval);
-}
-
-function mining() {
-    const rock = create_rock();
-    const obj_file = create_obj_file(rock);
+    if (do_save) {
+        save(obj_file, filename);
+        return;
+    }
     axios
         .post(apiUrl, {
             jsonrpc: "2.0",
@@ -38,10 +36,10 @@ function mining() {
             console.log(e.toString());
         })
         .then((response) => {
-            if (!response) {
-                return;
+            if (response && response.hasOwnProperty("data")) {
+                console.log(response.data);
             }
-            console.log(response.data);
+            setTimeout(mining, interval);
         });
 }
 
