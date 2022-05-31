@@ -24,6 +24,8 @@ v 0.04743874818086624 0.7608485817909241 -0.07884219288825989\n
 ```
 
 ## Install
+You have to have [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/) installed in your machine. 
+If you have, use this command to install miner: 
 
 ```bash
 yarn
