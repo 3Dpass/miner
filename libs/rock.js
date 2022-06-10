@@ -29,7 +29,7 @@ const Rock = function (rockObj) {
 
     const rand = seedRandom(rock.seed);
 
-    const sphere = createSphere({ stacks: 50, slices: 50 });
+    const sphere = createSphere({ stacks: 25, slices: 25 });
 
     const positions = sphere.vertices;
     const indexes = sphere.cells;
@@ -99,12 +99,16 @@ const Rock = function (rockObj) {
         positions[i][0] *= rock.scale[0];
         positions[i][1] *= rock.scale[1];
         positions[i][2] *= rock.scale[2];
+
+        positions[i][0] = Math.round((positions[i][0] + Number.EPSILON) * 100) / 100;
+        positions[i][1] = Math.round((positions[i][1] + Number.EPSILON) * 100) / 100;
+        positions[i][2] = Math.round((positions[i][2] + Number.EPSILON) * 100) / 100;
     }
 
     const geometry = new THREE.BufferGeometry();
     geometry.setIndex(indexes.flat());
     const vertices = positions.flat();
-    geometry.setAttribute("position", new THREE.Float32BufferAttribute(vertices, 3));
+    geometry.setAttribute("position", new THREE.Float64BufferAttribute(vertices, 3));
     geometry.computeVertexNormals();
 
     rock.geometry = geometry;
