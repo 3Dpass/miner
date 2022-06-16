@@ -17,6 +17,8 @@
     "random-array": "0.0.2",
     "seed-random": "2.2.0",
     "three": "0.139.2",
+    "@polkadot/api": "8.8.2",
+    "@polkadot/util-crypto": "9.4.1",
     "yargs": "17.4.1"
   }
 }
