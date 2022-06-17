@@ -39,3 +39,8 @@ yarn
 ```bash
 yarn miner
 ```
+### Save 3D model:
+```bash
+yarn miner --save
+```
+3D model generated will be saved in the project folder as rock.obj file
