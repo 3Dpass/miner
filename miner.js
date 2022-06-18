@@ -29,7 +29,7 @@ function mining(do_save) {
         .post(apiUrl, {
             jsonrpc: "2.0",
             id: 1,
-            method: "push_mining_object",
+            method: "poscan_pushMiningObject",
             params: [1, obj_file],
         })
         .catch((e) => {
